@@ -77,14 +77,14 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
-      env: 
+      env:
           GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
  
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false
-      env: 
+      env:
           GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
@@ -92,5 +92,5 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform apply -auto-approve 
-      env: 
+      env:
           GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
